@@ -1,0 +1,140 @@
+/* General styles */
+body {
+  background-color: #121212;
+  color: #f0f0f0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styles */
+header {
+  background-color: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Header container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo image */
+.logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* VaultStamp text */
+.logo-text {
+  color: #a363f7;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Navigation styles */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #b0b0b0;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #a363f7;
+  background-color: rgba(192, 132, 252, 0.1);
+}
+
+.nav-links a.active {
+  border: 2px solid #a363f7;
+  color: #c084fc;
+  background-color: rgba(192, 132, 252, 0.1);
+}
+
+/* Sign In Button */
+.sign-in-btn {
+  background-color: #a363f7;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sign-in-btn:hover {
+  background-color: #a363f7;
+}
+
+/* Main content area */
+.home-main {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Welcome section */
+.welcome {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.welcome h1 {
+  font-size: 3rem;
+  color: #a363f7;
+  margin-bottom: 20px;
+}
+
+.welcome p {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.action-btn {
+  background-color: #a363f7;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.action-btn:hover {
+  background-color: #a363f7;
+}
+
+/* About preview section */
+.about-preview {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 12px;
+  color: #ddd;
+}
+
+.about-preview h2 {
+  color: #a363f7;
+  margin-bottom: 20px;
+}
