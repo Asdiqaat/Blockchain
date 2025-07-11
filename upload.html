@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Upload Document - VaultStamp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-bg">
+
+  <header class="header">
+    <div class="navbar">
+      <span class="logo-text">VaultStamp</span>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="upload.html" class="active">Upload</a>
+        <a href="verify.html">Verify</a>
+        <a href="uploads.html">Uploaded Files</a>
+      </nav>
+      <button id="loginBtn" class="sign-in-btn">Sign In</button>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <h1>Upload Document</h1>
+    <p>Upload your document to VaultStamp for secure timestamping on the blockchain.</p>
+
+    <form id="uploadForm">
+      <input type="file" id="fileInput" /><br>
+      <input type="text" id="hashInput" placeholder="Or enter hash manually" /><br>
+      <button type="submit">Upload & Timestamp</button>
+    </form>
+    <p id="uploadStatus"></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

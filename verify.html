@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verify Document - VaultStamp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-bg">
+
+  <header class="header">
+    <div class="navbar">
+      <span class="logo-text">VaultStamp</span>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="upload.html">Upload</a>
+        <a href="verify.html" class="active">Verify</a>
+        <a href="uploads.html">Uploaded Files</a>
+      </nav>
+      <button id="loginBtn" class="sign-in-btn">Sign In</button>
+    </div>
+  </header>
+
+  <main class="home-main">
+    <h1>Verify Document</h1>
+    <p>Check the authenticity of your document by verifying its blockchain timestamp.</p>
+
+    <form id="verifyForm">
+      <input type="file" id="fileInputVerify" /><br>
+      <input type="text" id="hashInputVerify" placeholder="Or enter hash manually" /><br>
+      <button type="submit">Verify</button>
+    </form>
+    <p id="verifyResult"></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

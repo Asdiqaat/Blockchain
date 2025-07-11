@@ -2,95 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About VaultStamp</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="dark-bg">
 
   <!-- Header / Navbar -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <!-- Logo -->
-      <div class="flex items-center space-x-2">
-        <img src="https://via.placeholder.com/40" alt="VaultStamp Logo" class="w-10 h-10 rounded-full">
-        <span class="font-bold text-xl text-gray-800">VaultStamp</span>
-      </div>
-
-      <!-- Navigation -->
-      <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
-        <a href="index.html" class="hover:text-blue-600">Home</a>
-        <a href="about.html" class="text-blue-600 font-semibold">About</a>
-        <a href="upload.html" class="hover:text-blue-600">Upload</a>
-        <a href="verify.html" class="hover:text-blue-600">Verify</a>
-        <a href="uploads.html" class="hover:text-blue-600">Uploaded Files</a>
-        <a href="contact.html" class="hover:text-blue-600">Contact</a>
+  <header class="header">
+    <div class="navbar">
+      <span class="logo-text">VaultStamp</span>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="upload.html">Upload</a>
+        <a href="verify.html">Verify</a>
+        <a href="uploads.html">Uploaded Files</a>
       </nav>
-
-      <!-- Sign In Button -->
-      <div>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
-          Sign In
-        </button>
-      </div>
+      <button class="sign-in-btn">Sign In</button>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="max-w-5xl mx-auto px-6 py-10">
-    <h1 class="text-3xl font-bold mb-4">About VaultStamp</h1>
+  <!-- Huge Slogan -->
+  <section class="tagline-section">
+    <div class="huge-tagline">
+      <h1>Empowering You to Secure Your Digital Documents Forever</h1>
+    </div>
+  </section>
 
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-2">🔐 What is VaultStamp?</h2>
+  <!-- Tab navigation -->
+  <div class="tabs-container">
+    <button class="tab-button active" data-tab="vision">Our Vision</button>
+    <button class="tab-button" data-tab="expertise">Our Expertise</button>
+    <button class="tab-button" data-tab="innovation">Innovation in Verification</button>
+  </div>
+
+  <!-- Tab content -->
+  <div class="tab-content-container">
+    <section id="vision" class="tab-content active">
       <p>
-        VaultStamp is a decentralized document timestamping and verification platform built on the Internet Computer (ICP) blockchain.
-        It allows users to prove the **existence and authenticity** of a file without ever uploading the file itself — only its unique hash is stored.
+        VaultStamp is built on the belief that every individual and organization deserves digital confidence. We aim to make cryptographic proof and data verification accessible to all — secure, simple, and decentralized.
       </p>
     </section>
 
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-2">📄 How Does It Work?</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li>You upload a document (or paste its hash) on the VaultStamp platform.</li>
-        <li>We calculate a **SHA-256 hash** of your file using your browser (client-side only).</li>
-        <li>This hash is **sent to a smart contract** (called a canister) on the ICP blockchain and saved with a timestamp.</li>
-        <li>Later, you (or anyone) can re-upload the file and check whether its hash already exists on the blockchain, proving:</li>
-        <ul class="list-disc pl-10">
-          <li>The document existed at a specific time.</li>
-          <li>The document has not been changed since then.</li>
-        </ul>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-2">💡 Real-World Use Cases</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><strong>Legal Proof:</strong> Prove authorship or ownership of files without revealing content.</li>
-        <li><strong>Academic Research:</strong> Timestamp and verify when papers or code were created.</li>
-        <li><strong>Creative Work:</strong> Artists can register their work as proof of originality.</li>
-        <li><strong>Business Contracts:</strong> Store proof-of-existence for agreements before signing.</li>
-        <li><strong>Evidence Chain:</strong> Police, journalists, or whistleblowers can timestamp evidence for integrity.</li>
-      </ul>
-    </section>
-
-    <section class="mb-8">
-      <h2 class="text-2xl font-semibold mb-2">🔎 Why Use Hashes Instead of Files?</h2>
+    <section id="expertise" class="tab-content">
       <p>
-        A **hash** is like a digital fingerprint — it's a short, fixed-length string that uniquely represents your file. Even a tiny change to the file will produce a completely different hash.
-        <br />
-        VaultStamp never stores or sees your original file, so your privacy is preserved while still proving its authenticity.
+        By combining the power of the Internet Computer Protocol (ICP) and client-side SHA-256 hashing, VaultStamp never stores your files — only their hash. This ensures complete privacy while enabling permanent proof of existence via smart contracts written in Motoko.
       </p>
     </section>
 
-    <section>
-      <h2 class="text-2xl font-semibold mb-2">✅ Blockchain Benefits</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li><strong>Immutable:</strong> Once a hash is recorded on the blockchain, it cannot be altered or deleted.</li>
-        <li><strong>Decentralized:</strong> Stored on ICP blockchain — not controlled by any single company or server.</li>
-        <li><strong>Transparent:</strong> Anyone can verify a file’s timestamp independently.</li>
-      </ul>
+    <section id="innovation" class="tab-content">
+      <p>
+        We replace fragile and centralized timestamping solutions with a public, tamper-proof mechanism. Users can verify a document’s authenticity by simply matching its hash with what’s recorded on-chain — ensuring your records remain untouchable and provable, forever.
+      </p>
     </section>
-  </main>
+  </div>
+
+  <script>
+    // Tab switching script
+    const tabs = document.querySelectorAll('.tab-button');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active from all tabs and contents
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        // Add active to clicked tab and matching content
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
