@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>About VaultStamp</title>
+  <title>VaultStamp | About</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="dark-bg">
@@ -19,14 +19,25 @@
         <a href="verify.html">Verify</a>
         <a href="uploads.html">Uploaded Files</a>
       </nav>
-      <button class="sign-in-btn">Sign In</button>
+      <!-- Wallet Sign In UI -->
+      <div class="sign-in-container">
+        <select id="walletSelect" aria-label="Select Wallet">
+          <option value="" disabled selected>Choose Wallet</option>
+          <option value="solana">Solana</option>
+          <option value="icp">ICP</option>
+        </select>
+        <input type="text" id="walletKeyInput" placeholder="Paste your public key" aria-label="Wallet Public Key" />
+        <button class="sign-in-btn" id="signInBtn">Connect</button>
+      </div>
     </div>
   </header>
 
   <!-- Huge Slogan -->
   <section class="tagline-section">
     <div class="huge-tagline">
-      <h1>Empowering You to Secure Your Digital Documents Forever</h1>
+      <h1>Lock your legacy</h1>
+      <h1>Verify With Vault Stamp</h1>
+      <p class="tagline-subtext">VaultStamp isn’t just about verification — it’s about protecting your creativity.</p>
     </div>
   </section>
 
@@ -34,48 +45,112 @@
   <div class="tabs-container">
     <button class="tab-button active" data-tab="vision">Our Vision</button>
     <button class="tab-button" data-tab="expertise">Our Expertise</button>
-    <button class="tab-button" data-tab="innovation">Innovation in Verification</button>
+    <button class="tab-button" data-tab="innovation">Innovation in Protection</button>
   </div>
 
   <!-- Tab content -->
   <div class="tab-content-container">
     <section id="vision" class="tab-content active">
       <p>
-        VaultStamp is built on the belief that every individual and organization deserves digital confidence. We aim to make cryptographic proof and data verification accessible to all — secure, simple, and decentralized.
+        VaultStamp empowers creators to protect their original designs and ideas. We believe everyone should be able to prove ownership of their digital assets — permanently and transparently. With VaultStamp, your logo or artwork gets a cryptographic timestamp on the blockchain, making idea theft a thing of the past.
       </p>
     </section>
 
     <section id="expertise" class="tab-content">
       <p>
-        By combining the power of the Internet Computer Protocol (ICP) and client-side SHA-256 hashing, VaultStamp never stores your files — only their hash. This ensures complete privacy while enabling permanent proof of existence via smart contracts written in Motoko.
+        VaultStamp uses Internet Computer Protocol (ICP) to store secure file fingerprints — not the files themselves. This keeps your data private while proving it’s yours.
       </p>
     </section>
 
     <section id="innovation" class="tab-content">
       <p>
-        We replace fragile and centralized timestamping solutions with a public, tamper-proof mechanism. Users can verify a document’s authenticity by simply matching its hash with what’s recorded on-chain — ensuring your records remain untouchable and provable, forever.
+        Our AI-powered system scans the web and social media platforms to detect if your design appears elsewhere. If it finds a match with 90% or higher similarity, it notifies you directly — giving you real-time awareness of potential plagiarism.
       </p>
     </section>
   </div>
 
+  <!-- Tab switching script -->
   <script>
-    // Tab switching script
     const tabs = document.querySelectorAll('.tab-button');
     const contents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Remove active from all tabs and contents
         tabs.forEach(t => t.classList.remove('active'));
         contents.forEach(c => c.classList.remove('active'));
 
-        // Add active to clicked tab and matching content
         tab.classList.add('active');
         document.getElementById(tab.dataset.tab).classList.add('active');
       });
     });
   </script>
-  <script src="script.js"></script>
+
+  <!-- Wallet sign-in script -->
+  <script>
+    let loggedInWallet = null;
+    let loggedInKey = null;
+
+    const walletSelect = document.getElementById('walletSelect');
+    const walletKeyInput = document.getElementById('walletKeyInput');
+    const signInBtn = document.getElementById('signInBtn');
+
+    function saveLogin() {
+      if (loggedInWallet && loggedInKey) {
+        localStorage.setItem('vaultstampWallet', loggedInWallet);
+        localStorage.setItem('vaultstampKey', loggedInKey);
+      }
+    }
+
+    function restoreLogin() {
+      const savedWallet = localStorage.getItem('vaultstampWallet');
+      const savedKey = localStorage.getItem('vaultstampKey');
+      if (savedWallet && savedKey) {
+        loggedInWallet = savedWallet;
+        loggedInKey = savedKey;
+        updateSignInUI();
+      }
+    }
+
+    function updateSignInUI() {
+      if (loggedInWallet && loggedInKey) {
+        signInBtn.textContent = `Signed in: ${loggedInWallet.toUpperCase()} Wallet`;
+        signInBtn.disabled = true;
+        walletSelect.style.display = 'none';
+        walletKeyInput.style.display = 'none';
+      } else {
+        signInBtn.textContent = 'Connect';
+        signInBtn.disabled = false;
+        walletSelect.style.display = '';
+        walletKeyInput.style.display = '';
+      }
+    }
+
+    signInBtn.addEventListener('click', () => {
+      const selectedWallet = walletSelect.value;
+      const key = walletKeyInput.value.trim();
+
+      if (!selectedWallet) {
+        alert('Please select a wallet (Solana or ICP).');
+        return;
+      }
+
+      if (!key) {
+        alert('Please paste your public key.');
+        return;
+      }
+
+      loggedInWallet = selectedWallet;
+      loggedInKey = key;
+
+      saveLogin();
+      updateSignInUI();
+      alert(`Logged in as ${loggedInWallet.toUpperCase()} wallet with key:\n${loggedInKey}`);
+    });
+
+    window.addEventListener('load', () => {
+      restoreLogin();
+    });
+  </script>
 
 </body>
 </html>

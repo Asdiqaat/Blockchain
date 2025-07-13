@@ -1,8 +1,8 @@
 // Simulated User and Backend Storage (Replace with ICP & II SDK later)
-let loggedInUser = null;
+let loggedInUser = "SOLANA Wallet"; // Force signed-in user as SOLANA Wallet
 const userUploads = {}; // { userPrincipal: [{hash, timestamp}] }
 const STORAGE_KEY_UPLOADS = 'userUploads';
-const STORAGE_KEY_USER = 'loggedInUser';
+// No need to store loggedInUser since fixed
 
 // ---------- Persistence Helpers ----------
 function saveUploadsToStorage() {
@@ -16,20 +16,6 @@ function loadUploadsFromStorage() {
     for (const user in parsed) {
       userUploads[user] = parsed[user];
     }
-  }
-}
-
-function saveLogin() {
-  if (loggedInUser) {
-    localStorage.setItem(STORAGE_KEY_USER, loggedInUser);
-  }
-}
-
-function restoreLogin() {
-  const stored = localStorage.getItem(STORAGE_KEY_USER);
-  if (stored) {
-    loggedInUser = stored;
-    updateLoginButtons();
   }
 }
 
@@ -53,24 +39,19 @@ function bufferToHex(buffer) {
 }
 
 // ---------- Login ----------
+// Disable login action, just update UI to show fixed user
 async function loginUser() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      loggedInUser = 'user-' + Math.floor(Math.random() * 1000);
-      saveLogin();
-      alert(`Logged in as ${loggedInUser}`);
-      updateLoginButtons();
-      resolve(loggedInUser);
-    }, 500);
-  });
+  alert(`Already signed in as ${loggedInUser}`);
+  updateLoginButtons();
 }
 
 function updateLoginButtons() {
   const btns = document.querySelectorAll('#loginBtn, .sign-in-btn');
   btns.forEach(btn => {
     if (loggedInUser) {
-      btn.textContent = `Signed in: ${loggedInUser}`;
+      btn.textContent = `Signed in:\nSOLANA Wallet`;
       btn.disabled = true;
+      btn.style.whiteSpace = "pre-line"; // allow line break
     } else {
       btn.textContent = 'Sign In';
       btn.disabled = false;
@@ -99,13 +80,9 @@ async function storeHashOnCanister(hash) {
   });
 }
 
-
 async function handleUploadForm(e) {
   e.preventDefault();
-  if (!loggedInUser) {
-    alert("Please sign in first!");
-    return;
-  }
+  // Removed sign-in check to allow upload without sign-in
 
   const fileInput = document.getElementById('fileInput');
   const hashInput = document.getElementById('hashInput');
@@ -141,7 +118,6 @@ async function handleUploadForm(e) {
   }
 }
 
-
 // ---------- Verification ----------
 async function verifyHashOnCanister(hash) {
   return new Promise(resolve => {
@@ -160,6 +136,7 @@ async function verifyHashOnCanister(hash) {
 
 async function handleVerifyForm(e) {
   e.preventDefault();
+  // Removed sign-in check to allow verify without sign-in
 
   const fileInput = document.getElementById('fileInputVerify');
   const hashInput = document.getElementById('hashInputVerify');
@@ -201,11 +178,7 @@ async function loadUploadedFiles() {
   const listElem = document.getElementById('uploadedFilesList');
   if (!listElem) return;
 
-  if (!loggedInUser) {
-    listElem.innerHTML = "<li>Please sign in to see your uploads.</li>";
-    return;
-  }
-
+  // Removed sign-in check to always show uploads for SOLANA Wallet user
   const uploads = await fetchUserUploads();
 
   if (uploads.length === 0) {
@@ -222,7 +195,7 @@ async function loadUploadedFiles() {
 
 // ---------- Init ----------
 window.addEventListener('load', () => {
-  restoreLogin();
+  // No need to restoreLogin anymore, as user is fixed
   loadUploadsFromStorage();
 
   const loginBtn = document.getElementById('loginBtn') || document.querySelector('.sign-in-btn');
@@ -236,4 +209,6 @@ window.addEventListener('load', () => {
 
   const uploadsList = document.getElementById('uploadedFilesList');
   if (uploadsList) loadUploadedFiles();
+
+  updateLoginButtons();
 });

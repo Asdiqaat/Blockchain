@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VaultStamp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VaultStamp | Home</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,9 +13,7 @@
     <div class="header-container">
       
       <!-- Logo -->
-      <!-- Brand Name -->
-        <div class="logo-text">VaultStamp</div>
-
+      <div class="logo-text">VaultStamp</div>
 
       <!-- Navigation Links -->
       <nav class="nav-links">
@@ -26,8 +24,16 @@
         <a href="uploads.html">Uploaded Files</a>
       </nav>
 
-      <!-- Sign In Button -->
-      <button class="sign-in-btn">Sign In</button>
+      <!-- Sign In Dropdown -->
+      <div class="sign-in-container">
+        <select id="walletSelect" aria-label="Select Wallet">
+          <option value="" disabled selected>Choose Wallet</option>
+          <option value="solana">Solana</option>
+          <option value="icp">ICP</option>
+        </select>
+        <input type="text" id="walletKeyInput" placeholder="Paste your public key" aria-label="Wallet Public Key" />
+        <button class="sign-in-btn" id="signInBtn">Connect</button>
+      </div>
     </div>
   </header>
 
@@ -35,23 +41,95 @@
   <main class="home-main">
     <section class="welcome">
       <h1>Welcome to VaultStamp</h1>
-      <p>Timestamp and verify documents securely on the blockchain.</p>
+      <p>Protect your original designs with blockchain timestamps and AI-powered plagiarism alerts.</p>
       <div class="action-buttons">
-        <a href="upload.html" class="action-btn">Upload Document</a>
-        <a href="verify.html" class="action-btn">Verify Document</a>
+        <a href="upload.html" class="action-btn">Upload a Design</a>
+        <a href="verify.html" class="action-btn">Check for Matches</a>
       </div>
     </section>
 
     <section class="about-preview">
       <h2>What is VaultStamp?</h2>
       <p>
-        VaultStamp is a decentralized proof-of-existence platform built on the Internet Computer (ICP).
-        Upload any document, and we’ll generate a secure hash and timestamp it on-chain.
-        Verify its authenticity at any time.
+        VaultStamp helps creators prove ownership of their logos, images, and designs. 
+        Your upload is hashed, timestamped, and stored on-chain using Internet Computer Protocol (ICP). 
+        The integrated AI scans social media for lookalike content — and if it detects a 90%+ match, you'll be notified directly.
       </p>
     </section>
   </main>
-<script src="script.js"></script>
+
+  <script>
+    // State
+    let loggedInWallet = null;
+    let loggedInKey = null;
+
+    // Elements
+    const walletSelect = document.getElementById('walletSelect');
+    const walletKeyInput = document.getElementById('walletKeyInput');
+    const signInBtn = document.getElementById('signInBtn');
+
+    // Save login info to localStorage to persist across pages
+    function saveLogin() {
+      if(loggedInWallet && loggedInKey) {
+        localStorage.setItem('vaultstampWallet', loggedInWallet);
+        localStorage.setItem('vaultstampKey', loggedInKey);
+      }
+    }
+
+    // Restore login info on page load
+    function restoreLogin() {
+      const savedWallet = localStorage.getItem('vaultstampWallet');
+      const savedKey = localStorage.getItem('vaultstampKey');
+      if(savedWallet && savedKey) {
+        loggedInWallet = savedWallet;
+        loggedInKey = savedKey;
+        updateSignInUI();
+      }
+    }
+
+    // Update UI after sign-in
+    function updateSignInUI() {
+      if(loggedInWallet && loggedInKey) {
+        signInBtn.textContent = `Signed in: ${loggedInWallet.toUpperCase()} Wallet`;
+        signInBtn.disabled = true;
+        walletSelect.style.display = 'none';
+        walletKeyInput.style.display = 'none';
+      } else {
+        signInBtn.textContent = 'Connect';
+        signInBtn.disabled = false;
+        walletSelect.style.display = '';
+        walletKeyInput.style.display = '';
+      }
+    }
+
+    // Handle Sign In button click
+    signInBtn.addEventListener('click', () => {
+      const selectedWallet = walletSelect.value;
+      const key = walletKeyInput.value.trim();
+
+      if(!selectedWallet) {
+        alert('Please select a wallet (Solana or ICP).');
+        return;
+      }
+
+      if(!key) {
+        alert('Please paste your public key.');
+        return;
+      }
+
+      loggedInWallet = selectedWallet;
+      loggedInKey = key;
+
+      saveLogin();
+      updateSignInUI();
+      alert(`Logged in as ${loggedInWallet.toUpperCase()} wallet with key:\n${loggedInKey}`);
+    });
+
+    // On page load, restore login state
+    window.addEventListener('load', () => {
+      restoreLogin();
+    });
+  </script>
 
 </body>
 </html>
